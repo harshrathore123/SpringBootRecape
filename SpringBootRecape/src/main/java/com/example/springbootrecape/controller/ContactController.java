@@ -1,5 +1,9 @@
 package com.example.springbootrecape.controller;
 
+import com.example.springbootrecape.repository.AddContactRepository;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,22 +13,37 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.springbootrecape.entities.AddContact;
 import com.example.springbootrecape.service.AddContactService;
 
-@RestController 
+@RestController
 public class ContactController {
-    private final AddContactService addContactService;
-    
-    public ContactController(AddContactService addContactService) {
-        this.addContactService = addContactService;
-    }
+	private final AddContactService addContactService;
 
-    @PostMapping("/addContact")
-    public AddContact addContact(@RequestBody AddContact addContact) {
-        return this.addContactService.saveContact(addContact);
-    }
-    
-    @GetMapping("/getContact/{id}")
-    public AddContact getContact(@PathVariable("id") Integer id) {
-    	return this.addContactService.getContact(id);
-    }
-    
+	public ContactController(AddContactService addContactService) {
+		this.addContactService = addContactService;
+	}
+
+	@PostMapping("/addContact")
+	public AddContact addContact(@RequestBody AddContact addContact) {
+		return this.addContactService.saveContact(addContact);
+	}
+
+	@GetMapping("/getContact/{id}")
+	public AddContact getContact(@PathVariable("id") Integer id) {
+		return this.addContactService.getContact(id);
+	}
+
+	@GetMapping("/getContact")
+	public List<AddContact> getAllContact() {
+		return this.addContactService.getAllContact();
+	}
+	
+	@DeleteMapping("/deleteContact/{id}")
+	public void deleteContactById(@PathVariable("id") Integer id) {
+		this.addContactService.DeleteContactById(id);
+	}
+	
+	@DeleteMapping("/deleteContact")
+	public void deleteContact() {
+		this.addContactService.DeleteAllContact();
+	}
+
 }

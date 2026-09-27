@@ -1,5 +1,6 @@
 package com.example.springbootrecape.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -33,5 +34,11 @@ public class AddEmployeeImpl implements AddEmployeeService {
 		}
 
 		return null;
+	}
+
+	@Override
+	public List<AddEmployee> getAllEmployee() {
+		List<AddEmployee> emp = this.addEmplyoeeRepository.findAll();
+		return emp;
 	}
 }
